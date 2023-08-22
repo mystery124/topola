@@ -8,81 +8,22 @@
     <!-- Run `npm run build-demo` for `bundle.js` to be built. -->
     <script src="bundle.js"></script>
     <script>
-      d3.text('data/family.ged', (gedcom) => {
+      
+
+      d3.text('data/abr3.ged', (gedcom) => {
         var json = topola.gedcomToJson(gedcom);
-        topola.createChart({
-          json,
-          svgSelector: '#relatives',
-          chartType: topola.RelativesChart,
-          renderer: topola.DetailedRenderer,
-          colors: topola.ChartColors.COLOR_BY_SEX,
-        }).render();
-      });
-      d3.json('data/data.json', (json) => {
-        topola.createChart({
-          json,
-          indiUrl: 'http://kielakowie.pl/tng/getperson.php?tree=tree381&personID=${id}',
-          famUrl: 'http://kielakowie.pl/tng/familygroup.php?tree=tree381&familyID=${id}',
-          svgSelector: '#hourglass',
-          chartType: topola.HourglassChart,
-          renderer: topola.DetailedRenderer,
-        }).render({
-          startFam: 'F3047',
-        });
-
-        topola.createChart({
-          json,
-          indiUrl: 'http://kielakowie.pl/tng/getperson.php?tree=tree381&personID=${id}',
-          famUrl: 'http://kielakowie.pl/tng/familygroup.php?tree=tree381&familyID=${id}',
-          svgSelector: '#ancestors',
-          chartType: topola.HourglassChart,
-          renderer: topola.DetailedRenderer,
-          horizontal: true,
-        }).render({
-          startIndi: 'I46464',
-        });
-
-        topola.createChart({
-          json,
-          indiUrl: 'http://kielakowie.pl/tng/getperson.php?tree=tree381&personID=${id}',
-          famUrl: 'http://kielakowie.pl/tng/familygroup.php?tree=tree381&familyID=${id}',
-          svgSelector: '#descendants',
-          chartType: topola.DescendantChart,
-          renderer: topola.SimpleRenderer,
-          horizontal: true,
-        }).render({
-          startFam: 'F23172',
-        });
-
-        topola.createChart({
-          json,
-          svgSelector: '#fancy',
-          chartType: topola.FancyChart,
-          renderer: topola.CircleRenderer,
-        }).render({
-          startFam: 'F4910',
-        });
-      });
-
-      d3.json('data/tudor.json', (json) => {
         topola.createChart({
           json,
           svgSelector: '#tudor',
-          chartType: topola.AncestorChart,
-          renderer: topola.DetailedRenderer,
+          //chartType: topola.RelativesChart,
+          chartType: topola.HourglassChart,
+          renderer: topola.SampleRenderer,
+          horizontal: true,
+          colors: topola.ChartColors.NO_COLOR,
+          locale: 'pl',
         }).render({
-          startFam: 'F15',
+          startFam: 'F6',
         });
-      });
-
-      d3.text('data/family2.ged', (gedcom) => {
-        var json = topola.gedcomToJson(gedcom);
-        topola.createChart({
-          json,
-          svgSelector: '#kinship',
-          chartType: topola.KinshipChart,
-          renderer: topola.DetailedRenderer,
-        }).render();
       });
 
       function download(elementId) {
@@ -122,35 +63,8 @@
   <body>
     <h1>Table of contents</h1>
     <ul>
-      <li><a href="#relativesTitle">Relatives chart</a>
-      <li><a href="#hourglassTitle">Hourglass – vertical layout</a>
-      <li><a href="#ancestorsTitle">Ancestors – horizontal layout</a>
       <li><a href="#tudorTitle">Tree with images</a>
-      <li><a href="#descendantsTitle">Descendants – simple boxes</a>
-      <li><a href="#kinshipTitle">Kinship chart</a>
-      <li><a href="#fancyTitle">Fancy tree</a>
     </ul>
-
-    <h1 id="relativesTitle">Relatives chart</h1>
-    <div>
-        <button onclick="download('relatives')">Download SVG</button>
-        <button onclick="print('relatives')">Print</button>
-    </div>
-    <svg class="graph" id="relatives"/>
-
-    <h1 id="hourglassTitle">Hourglass – vertical layout</h1>
-    <div>
-        <button onclick="download('hourglass')">Download SVG</button>
-        <button onclick="print('hourglass')">Print</button>
-    </div>
-    <svg class="graph" id="hourglass"/>
-
-    <h1 id="ancestorsTitle">Ancestors – horizontal layout</h1>
-    <div>
-        <button onclick="download('ancestors')">Download SVG</button>
-        <button onclick="print('ancestors')">Print</button>
-    </div>
-    <svg class="graph" id="ancestors"/>
 
     <h1 id="tudorTitle">Tree with images</h1>
     <div>
@@ -159,26 +73,5 @@
     </div>
     <svg class="graph" id="tudor"/>
 
-    <h1 id="descendantsTitle">Descendants – simple boxes</h1>
-    <div>
-        <button onclick="download('descendants')">Download SVG</button>
-        <button onclick="print('descendants')">Print</button>
-    </div>
-    <svg class="graph" id="descendants"/>
-
-    <h1 id="kinshipTitle">Kinship chart</h1>
-    <div>
-        <button onclick="download('kinship')">Download SVG</button>
-        <button onclick="print('kinship')">Print</button>
-    </div>
-    <svg class="graph" id="kinship"/>
-
-    <h1 id="fancyTitle">Fancy tree</h1>
-    <p>Inspired by <a href="https://imgur.com/a/T02Kc7X">https://imgur.com/a/T02Kc7X</a></p>
-    <div>
-        <button onclick="download('fancy')">Download SVG</button>
-        <button onclick="print('fancy')">Print</button>
-    </div>
-    <svg class="graph" id="fancy"/>
   </body>
 </html>

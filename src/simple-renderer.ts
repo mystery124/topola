@@ -91,7 +91,7 @@ export class SimpleRenderer extends CompositeRenderer implements Renderer {
 .link {
   fill: none;
   stroke: #000;
-  stroke-width: 1px;
+  stroke-width: 2px;
 }
 
 .additional-marriage {
